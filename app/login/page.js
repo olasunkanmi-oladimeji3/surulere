@@ -17,21 +17,21 @@ export default function LoginPage() {
   const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    setError("");
-    setSubmitting(true);
-    const result = await login(email.trim(), password);
-    setSubmitting(false);
+  e.preventDefault();
+  setError("");
+  setSubmitting(true);
+  const result = await login(email.trim(), password);
+  console.log("Login result:", result);
+  setSubmitting(false);
 
-    if (!result.ok) {
-      setError(result.error);
-      return;
-    }
-
-    const href = navHrefFor(result.user?.role);
-    console.log("navigating to", href); // does this log?
-    router.push(href);
+  if (!result.ok) {
+    setError(result.error);
+    return;
   }
+
+  const href = navHrefFor(result.user?.role);
+  window.location.href = href; // hard nav — was: router.push(href)
+}
 
   return (
     <div className="text-text min-h-screen flex flex-col">

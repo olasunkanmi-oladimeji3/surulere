@@ -1,44 +1,31 @@
+// components/LogVisitModal.js
 "use client";
-
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Modal from "./Modal";
-import { DB, addAuditEntry } from "@/lib/data";
+import { logVisitAction } from "@/app/dashboard/admin/properties/[id]/actions";
 
-export default function LogVisitModal({ open, onClose, propertyId, actorId, actionLabel }) {
+export default function LogVisitModal({ open, onClose, propertyId, actionLabel }) {
   return (
     <Modal open={open} onClose={onClose} title="Log a verification visit">
-      <VisitForm key={open ? "open" : "closed"} propertyId={propertyId} actorId={actorId} onClose={onClose} actionLabel={actionLabel} />
+      <VisitForm key={open ? "open" : "closed"} propertyId={propertyId} onClose={onClose} actionLabel={actionLabel} />
     </Modal>
   );
 }
 
-function VisitForm({ propertyId, actorId, onClose, actionLabel }) {
+function VisitForm({ propertyId, onClose, actionLabel }) {
   const [outcome, setOutcome] = useState("verified");
   const [note, setNote] = useState("");
+  const [error, setError] = useState("");
+  const [pending, startTransition] = useTransition();
 
   function handleSubmit(e) {
     e.preventDefault();
-    const db = DB.load();
-    const property = db.properties.find((p) => p.id === propertyId);
-    property.status = outcome;
-    property.flagNote = outcome === "flagged" ? note.trim() : undefined;
-    property.updated_at = new Date().toISOString().slice(0, 10);
-
-    db.verificationLogs.push({
-      id: "log-" + Date.now(),
-      property_id: propertyId,
-      actorId,
-      outcome,
-      note: note.trim(),
-      date: new Date().toISOString().slice(0, 10),
+    setError("");
+    startTransition(async () => {
+      const res = await logVisitAction(propertyId, outcome, note);
+      if (!res.ok) { setError(res.error); return; }
+      onClose();
     });
-
-    addAuditEntry(db, {
-      actorId, action: outcome === "verified" ? "Verified a property" : "Flagged a property",
-      detail: `${property.property_number} — ${note.trim()}`,
-    });
-    DB.save(db); // notifies the store
-    onClose();
   }
 
   return (
@@ -63,9 +50,10 @@ function VisitForm({ propertyId, actorId, onClose, actionLabel }) {
           value={note} onChange={(e) => setNote(e.target.value)}
         />
       </div>
+      {error && <p className="field-error">{error}</p>}
       <div className="flex gap-2.5 pt-1">
         <button type="button" onClick={onClose} className="btn-secondary flex-1">Cancel</button>
-        <button type="submit" className="btn-primary flex-1">{actionLabel || "Submit"}</button>
+        <button type="submit" disabled={pending} className="btn-primary flex-1">{pending ? "Saving…" : (actionLabel || "Submit")}</button>
       </div>
     </form>
   );

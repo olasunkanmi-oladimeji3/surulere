@@ -46,25 +46,45 @@ export async function POST(request) {
     .rpc("next_property_number", { p_ward_code: ward.code });
   if (numErr) return NextResponse.json({ error: "Failed to generate property number." }, { status: 500 });
 
-  const { data: property, error: propErr } = await supabase
-    .from("properties")
-    .insert({
-      property_number: propertyNumber,
-      address: address.trim(),
-      ward_id: wardId,
-      cda_id: cdaId,
-      building_type: buildingType,
-      property_type: propertyType,
-      owner_id: null,
-      registered_by: null,
-      registered_by_role: "cda",
-      status: "pending",
-      field_agent_name: agentName.trim(),
-      field_agent_phone: agentPhone.trim(),
-      property_images: imageUrls,
-    })
-    .select()
-    .single();
+  // app/api/field/submit/route.js
+// ...unchanged validation above...
+
+const { data: property, error: propErr } = await supabase
+  .from("properties")
+  .insert({
+    property_number: propertyNumber,
+    address: address.trim(),
+    ward_id: wardId,
+    cda_id: cdaId,
+    building_type: buildingType,
+    property_type: propertyType,
+    owner_id: null, // no real `owners` row yet — auth comes later
+    registered_by: null,
+    registered_by_role: "cda",
+    status: "pending",
+    field_agent_name: agentName.trim(),
+    field_agent_phone: agentPhone.trim(),
+    property_images: imageUrls,
+  })
+  .select()
+  .single();
+
+if (propErr) return NextResponse.json({ error: propErr.message }, { status: 500 });
+
+// NEW — save the owner data that was previously being dropped
+const { error: ownerErr } = await supabase.from("field_owners").insert({
+  property_id: property.id,
+  first_name: ownerFirstName.trim(),
+  last_name: ownerLastName.trim(),
+  phone: ownerPhone.trim(),
+  nin: ownerNin?.trim() || null,
+});
+if (ownerErr) {
+  await supabase.from("properties").delete().eq("id", property.id);
+  return NextResponse.json({ error: `Owner info: ${ownerErr.message}` }, { status: 500 });
+}
+
+// ...rest unchanged (residentRefs loop, audit_log insert)...
 
   if (propErr) return NextResponse.json({ error: propErr.message }, { status: 500 });
 

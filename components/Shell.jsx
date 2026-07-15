@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { ROLE_LABEL, displayName } from "@/lib/data";
@@ -30,6 +31,7 @@ const NAV_ITEMS = {
   admin: [
     { href: "/dashboard/admin", label: "Overview", icon: "building" },
     { href: "/dashboard/admin/properties", label: "Properties", icon: "house" },
+     { href: "/dashboard/admin/residents", label: "Residents", icon: "doorOpen" },
     { href: "/dashboard/admin/field-submissions", label: "Field submissions", icon: "flag" },
     { href: "/dashboard/admin/cda-members", label: "CDA members", icon: "shield" },
     { href: "/dashboard/admin/lg-staff", label: "LG Staff", icon: "users" },
@@ -54,7 +56,7 @@ export default function Shell({ user, children }) {
     <div className="min-h-screen flex flex-col lg:flex-row">
       <aside className="bg-ink text-on-ink lg:w-64 lg:min-h-screen lg:fixed lg:inset-y-0 flex flex-col">
         <div className="flex items-center gap-2.5 px-5 py-5 border-b border-white/10">
-          <span className="text-brass"><Seal className="h-8 w-8" /></span>
+          <span className="text-brass"><Image src="/logo.png" alt="Ilé Surulere" width={36} height={36} /></span>
           <div className="leading-tight">
             <p className="font-display text-sm font-semibold">Ilé Surulere</p>
             <p className="text-[11px] text-on-ink/60">Community Registry</p>
@@ -96,7 +98,7 @@ export default function Shell({ user, children }) {
       <div className="flex-1 lg:ml-64">
         <header className="bg-surface border-b border-line px-5 py-4 flex items-center justify-between gap-3 lg:hidden">
           <div className="flex items-center gap-2 text-ink">
-            <span className="text-brass"><Seal className="h-7 w-7" /></span>
+            <span className="text-brass"><Image src="/logo.png" alt="Ilé Surulere" width={32} height={32} /></span>
             <span className="font-display text-sm font-semibold">Ilé Surulere</span>
           </div>
           <div className="flex items-center gap-1.5">
