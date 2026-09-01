@@ -4,8 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import Shell from "@/components/Shell";
 import Stamp from "@/components/Stamp";
-import Icon from "@/components/Icon";
 import EmptyState from "@/components/EmptyState";
+import FilterBar, { SearchField, FilterFields } from "@/components/FilterBar";
 
 export default function PropertiesClient({ user, properties, wards }) {
   const [query, setQuery] = useState("");
@@ -23,6 +23,11 @@ export default function PropertiesClient({ user, properties, wards }) {
     return true;
   });
 
+  const activeFilterCount = [query.trim(), wardId, status].filter(Boolean).length;
+  function clearFilters() {
+    setQuery(""); setWardId(""); setStatus("");
+  }
+
   return (
     <Shell user={user}>
       <div className="mb-6">
@@ -30,25 +35,24 @@ export default function PropertiesClient({ user, properties, wards }) {
         <p className="text-sm text-muted mt-1">Every property on the registry, by address rather than by resident.</p>
       </div>
       <div className="card">
-        <div className="card-header flex-wrap gap-3">
+        <div className="card-header">
           <h2 className="font-display text-base text-ink font-semibold">{results.length} of {properties.length}</h2>
-          <div className="flex flex-wrap gap-2">
-            <div className="relative">
-              <Icon name="search" className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
-              <input className="field-input pl-8 py-1.5 text-sm w-48" placeholder="Address, owner, property ID" value={query} onChange={(e) => setQuery(e.target.value)} />
-            </div>
-            <select className="field-input py-1.5 text-sm" value={wardId} onChange={(e) => setWardId(e.target.value)}>
+        </div>
+        <FilterBar activeCount={activeFilterCount} onClear={clearFilters}>
+          <SearchField value={query} onChange={setQuery} placeholder="Address, owner, property ID" />
+          <FilterFields>
+            <select className="select-field" value={wardId} onChange={(e) => setWardId(e.target.value)}>
               <option value="">All wards</option>
               {wards.map((w) => <option key={w.id} value={w.id}>{w.name}</option>)}
             </select>
-            <select className="field-input py-1.5 text-sm" value={status} onChange={(e) => setStatus(e.target.value)}>
+            <select className="select-field" value={status} onChange={(e) => setStatus(e.target.value)}>
               <option value="">All statuses</option>
               <option value="verified">Verified</option>
               <option value="pending">Pending review</option>
               <option value="flagged">Flagged</option>
             </select>
-          </div>
-        </div>
+          </FilterFields>
+        </FilterBar>
         {results.length === 0 ? (
           <EmptyState icon="house" title="No properties match" body="Try a different search term or clear the filters." />
         ) : (

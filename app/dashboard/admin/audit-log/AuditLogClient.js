@@ -27,7 +27,7 @@ export default function AuditLogClient({ user, logs }) {
           <h1 className="font-display text-2xl text-ink font-semibold">Audit log</h1>
           <p className="text-sm text-muted mt-1">Who registered, added, removed, or verified what — newest first.</p>
         </div>
-        <select className="field-input py-1.5 text-sm w-44" value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)}>
+        <select className="select-field w-full sm:w-44 shrink-0" value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)}>
           <option value="">Everyone</option>
           <option value="owner">Owners</option>
           <option value="resident">Tenants</option>

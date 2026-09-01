@@ -479,7 +479,7 @@ function isValidNigerianPhone(value) {
               <Field label="Full address" required error={errors.address}>
                 <input className="field-input" placeholder="House number, street name" value={address} onChange={(e) => setAddress(e.target.value)} />
               </Field>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Field label="Building type" required error={errors.buildingType}>
                   <select className="field-input" value={buildingType} onChange={(e) => setBuildingType(e.target.value)}>
                     <option value="">Select</option>
@@ -496,7 +496,7 @@ function isValidNigerianPhone(value) {
             </Section>
 
             <Section title="Property Owner">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Field label="First name" required error={errors.ownerFirstName}>
                   <input className="field-input" value={ownerFirstName} onChange={(e) => setOwnerFirstName(e.target.value)} />
                 </Field>
@@ -504,7 +504,7 @@ function isValidNigerianPhone(value) {
                   <input className="field-input" value={ownerLastName} onChange={(e) => setOwnerLastName(e.target.value)} />
                 </Field>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Field label="Phone number" required error={errors.ownerPhone}>
                   <input className="field-input" type="tel" placeholder="0800 000 0000" value={ownerPhone} onChange={(e) => setOwnerPhone(e.target.value)} />
                 </Field>
@@ -714,7 +714,7 @@ function ResidentCard({ index, resident: r, errors, onSet, onSetHead, onRemove, 
 
       {open && (
         <div className="card-body space-y-4">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Field label="First name" required error={errors[`${pre}firstName`]}>
               <input className="field-input" value={r.firstName} onChange={(e) => onSet("firstName", e.target.value)} />
             </Field>
@@ -722,7 +722,7 @@ function ResidentCard({ index, resident: r, errors, onSet, onSetHead, onRemove, 
               <input className="field-input" value={r.lastName} onChange={(e) => onSet("lastName", e.target.value)} />
             </Field>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Field label="Phone" required error={errors[`${pre}phone`]}>
               <input className="field-input" type="tel" placeholder="0800 000 0000" value={r.phone} onChange={(e) => onSet("phone", e.target.value)} />
             </Field>
@@ -730,7 +730,7 @@ function ResidentCard({ index, resident: r, errors, onSet, onSetHead, onRemove, 
               <input className="field-input" type="email" placeholder="Leave blank if none" value={r.email} onChange={(e) => onSet("email", e.target.value)} />
             </Field>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Field label="NIN (11 digits)" error={errors[`${pre}nin`]}>
               <input className="field-input font-mono" inputMode="numeric" maxLength={11} placeholder="Optional" value={r.nin} onChange={(e) => onSet("nin", e.target.value.replace(/\D/g, ""))} />
             </Field>
@@ -738,7 +738,7 @@ function ResidentCard({ index, resident: r, errors, onSet, onSetHead, onRemove, 
               <input className="field-input" type="date" value={r.dateOfBirth} onChange={(e) => onSet("dateOfBirth", e.target.value)} />
             </Field>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Field label="Gender">
               <select className="field-input" value={r.gender} onChange={(e) => onSet("gender", e.target.value)}>
                 <option value="">Select</option>
@@ -752,7 +752,7 @@ function ResidentCard({ index, resident: r, errors, onSet, onSetHead, onRemove, 
               </select>
             </Field>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Field label="State of origin">
               <select className="field-input" value={r.stateOfOrigin} onChange={(e) => onSet("stateOfOrigin", e.target.value)}>
                 <option value="">Select</option>
@@ -782,7 +782,7 @@ function ResidentCard({ index, resident: r, errors, onSet, onSetHead, onRemove, 
                     <span className="text-xs text-muted uppercase tracking-wide">Member {mi + 1}</span>
                     <button type="button" onClick={() => onRemoveMember(mi)} className="text-flagged text-xs">Remove</button>
                   </div>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <Field label="First name" required error={errors[`r${index}_m${mi}_firstName`]}>
                       <input className="field-input" value={m.firstName} onChange={(e) => onSetMember(mi, "firstName", e.target.value)} />
                     </Field>
@@ -790,7 +790,7 @@ function ResidentCard({ index, resident: r, errors, onSet, onSetHead, onRemove, 
                       <input className="field-input" value={m.lastName} onChange={(e) => onSetMember(mi, "lastName", e.target.value)} />
                     </Field>
                   </div>
-                  <div className="grid grid-cols-2 gap-3 mt-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
                     <Field label="Relationship" required error={errors[`r${index}_m${mi}_rel`]}>
                       <select className="field-input" value={m.relationship} onChange={(e) => onSetMember(mi, "relationship", e.target.value)}>
                         <option value="">Select</option>
@@ -804,7 +804,7 @@ function ResidentCard({ index, resident: r, errors, onSet, onSetHead, onRemove, 
                       </select>
                     </Field>
                   </div>
-                  <div className="grid grid-cols-2 gap-3 mt-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
                     <Field label="Age">
                       <input className="field-input" type="number" min="0" max="120" value={m.age} onChange={(e) => onSetMember(mi, "age", e.target.value)} />
                     </Field>

@@ -34,39 +34,60 @@ export default function LoginPage() {
 }
 
   return (
-    <div className="text-text min-h-screen flex flex-col">
-      <header className="border-b border-line">
-        <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 text-ink">
-            <span className="text-brass">
-              <Seal className="h-8 w-8" />
-            </span>
-            <span className="font-display font-semibold text-base">
-              Ilé Surulere
-            </span>
-          </Link>
-          <Link
-            href="/signup"
-            className="text-sm font-medium text-muted hover:text-ink"
-          >
-            Own property here? Register
-          </Link>
+    <div className="text-text min-h-screen flex">
+      <div
+        className="hero-panel hidden lg:flex lg:w-[42%] lg:flex-col lg:justify-end lg:p-10"
+        style={{ backgroundImage: "url(/illustrations/estate-panel.svg)" }}
+      >
+        <div className="flex items-center gap-2.5 text-on-ink mb-6">
+          <span className="text-brass"><Seal className="h-8 w-8" /></span>
+          <span className="font-display font-semibold text-base">Ilé Surulere</span>
         </div>
-      </header>
+        <p className="font-display text-2xl text-on-ink leading-snug max-w-sm">
+          One record for every home in Surulere.
+        </p>
+        <p className="text-sm text-on-ink/75 mt-3 max-w-sm">
+          Owners, tenants, CDA members, and LG Staff — each with their own gate,
+          into the same trusted registry.
+        </p>
+      </div>
 
-      <main className="flex-1 flex items-center justify-center px-5 py-12">
-        <div className="w-full max-w-sm">
-          <h1 className="font-display text-2xl text-ink font-semibold">
-            Log in
-          </h1>
-          <p className="text-sm text-muted mt-2">
-            For property owners, tenants, CDA members, and LG Staff.
-          </p>
+      <div className="flex-1 flex flex-col">
+        <header className="border-b border-line lg:hidden">
+          <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-2.5 text-ink">
+              <span className="text-brass">
+                <Seal className="h-8 w-8" />
+              </span>
+              <span className="font-display font-semibold text-base">
+                Ilé Surulere
+              </span>
+            </Link>
+            <Link
+              href="/signup"
+              className="text-sm font-medium text-muted hover:text-ink"
+            >
+              Own property here? Register
+            </Link>
+          </div>
+        </header>
 
-          <form
-            onSubmit={handleSubmit}
-            className="card card-body space-y-4 mt-5"
-          >
+        <main className="flex-1 flex items-center justify-center px-5 py-12">
+          <div className="w-full max-w-sm">
+            <Link href="/signup" className="hidden lg:block text-sm font-medium text-muted hover:text-ink mb-6">
+              Own property here? Register &rarr;
+            </Link>
+            <h1 className="font-display text-2xl text-ink font-semibold">
+              Log in
+            </h1>
+            <p className="text-sm text-muted mt-2">
+              For property owners, tenants, CDA members, and LG Staff.
+            </p>
+
+            <form
+              onSubmit={handleSubmit}
+              className="card card-body space-y-4 mt-5"
+            >
             <div>
               <label className="field-label" htmlFor="email">
                 Email address
@@ -103,9 +124,10 @@ export default function LoginPage() {
             >
               {submitting ? "Logging in…" : "Log in"}
             </button>
-          </form>
-        </div>
-      </main>
+            </form>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

@@ -54,8 +54,9 @@ export default function Shell({ user, children }) {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
-      <aside className="bg-ink text-on-ink lg:w-64 lg:min-h-screen lg:fixed lg:inset-y-0 flex flex-col">
-        <div className="flex items-center gap-2.5 px-5 py-5 border-b border-white/10">
+      <aside className="relative bg-ink text-on-ink lg:w-64 lg:min-h-screen lg:fixed lg:inset-y-0 flex flex-col overflow-hidden">
+        <div className="ward-watermark absolute inset-0 opacity-40 pointer-events-none" aria-hidden="true" />
+        <div className="relative flex items-center gap-2.5 px-5 py-5 border-b border-white/10">
           <span className="text-brass"><Image src="/logo.png" alt="Ilé Surulere" width={36} height={36} /></span>
           <div className="leading-tight">
             <p className="font-display text-sm font-semibold">Ilé Surulere</p>
@@ -78,7 +79,7 @@ export default function Shell({ user, children }) {
         </nav>
         <div className="px-3 py-4 border-t border-white/10">
           <div className="flex items-center gap-2.5 px-2 py-2">
-            <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-semibold">
+            <div className="h-8 w-8 rounded-full bg-white/10 ring-1 ring-brass/60 flex items-center justify-center text-xs font-semibold text-brass">
               {initials(displayName(user))}
             </div>
             <div className="leading-tight min-w-0">

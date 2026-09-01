@@ -46,7 +46,7 @@ export default function OwnerDashboard() {
         </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-3 mb-7">
+      <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-7">
         <StatCard label="Properties" value={safeProperties.length} />
         <StatCard label="Tenants in place" value={occupied} />
         <StatCard label="Vacant units" value={vacant} />

@@ -54,7 +54,7 @@ function PasswordForm({ onClose }) {
         <label className="field-label" htmlFor="cp-current">Current password</label>
         <input className="field-input" id="cp-current" type="password" required value={current} onChange={(e) => setCurrent(e.target.value)} />
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label className="field-label" htmlFor="cp-new">New password</label>
           <input className="field-input" id="cp-new" type="password" minLength={6} required value={next} onChange={(e) => setNext(e.target.value)} />

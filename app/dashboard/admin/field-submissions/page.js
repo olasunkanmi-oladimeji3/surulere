@@ -11,6 +11,7 @@ import Stamp from "@/components/Stamp";
 import Icon from "@/components/Icon";
 import EmptyState from "@/components/EmptyState";
 import PageLoading from "@/components/PageLoading";
+import FilterBar, { SearchField, FilterFields } from "@/components/FilterBar";
 
 async function fetchFieldSubmissions(supabase, { wardId, status }) {
   let q = supabase
@@ -32,6 +33,7 @@ export default function FieldSubmissionsPage() {
   const { supabase } = useAuth();
   const [wardFilter, setWardFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("pending");
+  const [query, setQuery] = useState("");
   const [expanded, setExpanded] = useState(null);
 
   const { data: submissions, error, mutate } = useSWR(
@@ -50,7 +52,12 @@ export default function FieldSubmissionsPage() {
     mutate();
   }
 
-  const list = submissions || [];
+  const list = (submissions || []).filter((p) => {
+    if (!query.trim()) return true;
+    const q = query.trim().toLowerCase();
+    const haystack = [p.property_number, p.address, p.field_agent_name].filter(Boolean).join(" ").toLowerCase();
+    return haystack.includes(q);
+  });
 
   return (
     <Shell user={user}>
@@ -63,26 +70,26 @@ export default function FieldSubmissionsPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        <select
-          className="field-input py-1.5 text-sm w-40"
-          value={wardFilter}
-          onChange={(e) => setWardFilter(e.target.value)}
+      <div className="card mb-6">
+        <FilterBar
+          activeCount={[query.trim(), wardFilter, statusFilter].filter(Boolean).length}
+          onClear={() => { setQuery(""); setWardFilter(""); setStatusFilter(""); }}
         >
-          <option value="">All wards</option>
-          {WARDS.map((w) => <option key={w.id} value={w.id}>{w.name}</option>)}
-        </select>
-        <select
-          className="field-input py-1.5 text-sm w-40"
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-        >
-          <option value="">All statuses</option>
-          <option value="pending">Pending</option>
-          <option value="verified">Verified</option>
-          <option value="flagged">Flagged</option>
-        </select>
-        <span className="text-sm text-muted self-center">{list.length} result{list.length !== 1 ? "s" : ""}</span>
+          <SearchField value={query} onChange={setQuery} placeholder="Address, property ID, agent name" />
+          <FilterFields>
+            <select className="select-field" value={wardFilter} onChange={(e) => setWardFilter(e.target.value)}>
+              <option value="">All wards</option>
+              {WARDS.map((w) => <option key={w.id} value={w.id}>{w.name}</option>)}
+            </select>
+            <select className="select-field" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+              <option value="">All statuses</option>
+              <option value="pending">Pending</option>
+              <option value="verified">Verified</option>
+              <option value="flagged">Flagged</option>
+            </select>
+          </FilterFields>
+          <span className="text-xs text-muted sm:ml-2">{list.length} result{list.length !== 1 ? "s" : ""}</span>
+        </FilterBar>
       </div>
 
       {error && <p className="field-error mb-4">{error.message}</p>}

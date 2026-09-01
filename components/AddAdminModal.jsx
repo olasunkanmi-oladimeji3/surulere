@@ -64,7 +64,7 @@ function AdminForm({ onClose, onAdded }) {
         This creates a real login account. The new staff member can log in with the email and temporary
         password below and change it from their dashboard.
       </p>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label className="field-label" htmlFor="adm-name">Full name <span className="text-flagged">*</span></label>
           <input className="field-input" id="adm-name" required value={form.fullName} onChange={(e) => set("fullName", e.target.value)} />
@@ -74,7 +74,7 @@ function AdminForm({ onClose, onAdded }) {
           <input className="field-input" id="adm-title" placeholder="e.g. LG Information Officer" value={form.title} onChange={(e) => set("title", e.target.value)} />
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label className="field-label" htmlFor="adm-email">Email <span className="text-flagged">*</span></label>
           <input className="field-input" id="adm-email" type="email" required value={form.email} onChange={(e) => set("email", e.target.value)} />
@@ -84,7 +84,7 @@ function AdminForm({ onClose, onAdded }) {
           <input className="field-input" id="adm-phone" type="tel" value={form.phone} onChange={(e) => set("phone", e.target.value)} />
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label className="field-label" htmlFor="adm-pw">Temporary password <span className="text-flagged">*</span></label>
           <input className="field-input" id="adm-pw" type="password" minLength={6} required value={form.password} onChange={(e) => set("password", e.target.value)} />

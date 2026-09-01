@@ -3,8 +3,8 @@ import { useState } from "react";
 import Link from "next/link";
 import Shell from "@/components/Shell";
 import Stamp from "@/components/Stamp";
-import Icon from "@/components/Icon";
 import EmptyState from "@/components/EmptyState";
+import FilterBar, { SearchField, FilterFields } from "@/components/FilterBar";
 import { statusLabel, GENDER_OPTIONS } from "@/lib/data";
 
 export default function ResidentsClient({ user, residents, wards, cdas }) {
@@ -28,6 +28,11 @@ export default function ResidentsClient({ user, residents, wards, cdas }) {
     return true;
   });
 
+  const activeFilterCount = [query.trim(), wardId, cdaId, gender].filter(Boolean).length;
+  function clearFilters() {
+    setQuery(""); setWardId(""); setCdaId(""); setGender("");
+  }
+
   return (
     <Shell user={user}>
       <div className="mb-6">
@@ -36,27 +41,27 @@ export default function ResidentsClient({ user, residents, wards, cdas }) {
       </div>
 
       <div className="card">
-        <div className="card-header flex-wrap gap-3">
+        <div className="card-header">
           <h2 className="font-display text-base text-ink font-semibold">{results.length} of {residents.length}</h2>
-          <div className="flex flex-wrap gap-2">
-            <div className="relative">
-              <Icon name="search" className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
-              <input className="field-input pl-8 py-1.5 text-sm w-48" placeholder="Name, ID, or property" value={query} onChange={(e) => setQuery(e.target.value)} />
-            </div>
-            <select className="field-input py-1.5 text-sm" value={wardId} onChange={(e) => { setWardId(e.target.value); setCdaId(""); }}>
+        </div>
+
+        <FilterBar activeCount={activeFilterCount} onClear={clearFilters}>
+          <SearchField value={query} onChange={setQuery} placeholder="Name, ID, or property" />
+          <FilterFields>
+            <select className="select-field" value={wardId} onChange={(e) => { setWardId(e.target.value); setCdaId(""); }}>
               <option value="">All wards</option>
               {wards.map((w) => <option key={w.id} value={w.id}>{w.name}</option>)}
             </select>
-            <select className="field-input py-1.5 text-sm" value={cdaId} onChange={(e) => setCdaId(e.target.value)}>
+            <select className="select-field" value={cdaId} onChange={(e) => setCdaId(e.target.value)}>
               <option value="">All CDAs</option>
               {cdaOptions.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
-            <select className="field-input py-1.5 text-sm" value={gender} onChange={(e) => setGender(e.target.value)}>
+            <select className="select-field col-span-2 sm:col-span-1" value={gender} onChange={(e) => setGender(e.target.value)}>
               <option value="">All genders</option>
               {GENDER_OPTIONS.map((g) => <option key={g} value={g} className="capitalize">{g}</option>)}
             </select>
-          </div>
-        </div>
+          </FilterFields>
+        </FilterBar>
 
         {results.length === 0 ? (
           <EmptyState icon="search" title="No residents match" body="Try a different search term or clear the filters." />

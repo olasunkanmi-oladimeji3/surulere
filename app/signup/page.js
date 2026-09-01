@@ -61,38 +61,59 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="text-text min-h-screen flex flex-col">
-      <header className="border-b border-line">
-        <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 text-ink">
-            <span className="text-brass"><Seal className="h-8 w-8" /></span>
-            <span className="font-display font-semibold text-base">Ilé Surulere</span>
-          </Link>
-          <Link href="/login" className="text-sm font-medium text-muted hover:text-ink">
-            Already have an account? Log in
-          </Link>
+    <div className="text-text min-h-screen flex">
+      <div
+        className="hero-panel hidden lg:flex lg:w-[42%] lg:flex-col lg:justify-end lg:p-10"
+        style={{ backgroundImage: "url(/illustrations/estate-panel.svg)" }}
+      >
+        <div className="flex items-center gap-2.5 text-on-ink mb-6">
+          <span className="text-brass"><Seal className="h-8 w-8" /></span>
+          <span className="font-display font-semibold text-base">Ilé Surulere</span>
         </div>
-      </header>
+        <p className="font-display text-2xl text-on-ink leading-snug max-w-sm">
+          Bring your property through the gate.
+        </p>
+        <p className="text-sm text-on-ink/75 mt-3 max-w-sm">
+          List it once, keep it current, and let your CDA and the Local
+          Government verify it on the ground.
+        </p>
+      </div>
 
-      <main className="flex-1 flex items-center justify-center px-5 py-12">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-7">
-            <Pill variant="brass">Property owner</Pill>
-            <h1 className="font-display text-2xl text-ink font-semibold mt-3">Register as a property owner</h1>
-            <p className="text-sm text-muted mt-2">
-              Add your properties and tenants once you&rsquo;re in. Tenants don&rsquo;t sign up
-              themselves — you&rsquo;ll add them, and they&rsquo;ll get their own login by email.
-            </p>
+      <div className="flex-1 flex flex-col">
+        <header className="border-b border-line lg:hidden">
+          <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-2.5 text-ink">
+              <span className="text-brass"><Seal className="h-8 w-8" /></span>
+              <span className="font-display font-semibold text-base">Ilé Surulere</span>
+            </Link>
+            <Link href="/login" className="text-sm font-medium text-muted hover:text-ink">
+              Already have an account? Log in
+            </Link>
           </div>
+        </header>
 
-          <form onSubmit={handleSubmit} className="card card-body space-y-4">
+        <main className="flex-1 flex items-center justify-center px-5 py-12">
+          <div className="w-full max-w-md">
+            <Link href="/login" className="hidden lg:block text-sm font-medium text-muted hover:text-ink mb-6">
+              Already have an account? Log in &rarr;
+            </Link>
+            <div className="text-center mb-7">
+              <Pill variant="brass">Property owner</Pill>
+              <h1 className="font-display text-2xl text-ink font-semibold mt-3">Register as a property owner</h1>
+              <p className="text-sm text-muted mt-2">
+                Add your properties and tenants once you&rsquo;re in. Tenants don&rsquo;t sign up
+                themselves — you&rsquo;ll add them, and they&rsquo;ll get their own login by email.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="card card-body space-y-4">
             <TextField label="Full name" required value={form.name} onChange={(v) => set("name", v)} placeholder="e.g. Ronke Afolabi" />
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <TextField label="Phone number" type="tel" required value={form.phone} onChange={(v) => set("phone", v)} placeholder="0800 000 0000" />
               <TextField label="NIN" required mono maxLength={11} inputMode="numeric" value={form.nin} onChange={(v) => set("nin", v)} placeholder="11 digits" />
             </div>
-            <TextField label="Email address" type="email" required value={form.email} onChange={(v) => set("email", v)} placeholder="[email protected]" />
-            <div className="grid grid-cols-2 gap-3">
+            <TextField label="Email address" type="email" required value={form.email} onChange={(v) => set("email", v)} placeholder="you@example.com" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <TextField label="Password" type="password" required minLength={6} value={form.password} onChange={(v) => set("password", v)} />
               <TextField label="Confirm password" type="password" required minLength={6} value={form.password2} onChange={(v) => set("password2", v)} />
             </div>
@@ -103,9 +124,10 @@ export default function SignupPage() {
             <p className="text-xs text-muted text-center pt-1">
               CDA members and LG Staff don&rsquo;t sign up here either — those accounts are issued by LG Staff directly.
             </p>
-          </form>
-        </div>
-      </main>
+            </form>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

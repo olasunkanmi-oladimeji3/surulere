@@ -23,6 +23,12 @@
   --color-brass:      #A6741A; /* accent — links, focus, stamp ring */
   --color-brass-tint: #F1E6CF; /* brass background tint */
   --color-on-ink:     #F5F3ED; /* text/icons on ink backgrounds */
+  --color-hedge:      #2F6B4F; /* foliage green — illustrations, dividers */
+  --color-sky:        #F6E7C3; /* warm gold-sky tone — hero gradients */
+
+  /* --- Elevation --- */
+  --shadow-card:   0 1px 2px rgba(17,47,35,0.04), 0 8px 20px -6px rgba(17,47,35,0.10);
+  --shadow-lifted: 0 4px 8px rgba(17,47,35,0.06), 0 20px 40px -12px rgba(17,47,35,0.18);
 
   /* --- Status colors (verification states) --- */
   --color-verified:        #2F7D52;
@@ -39,6 +45,24 @@
   --radius-card: 0.375rem;
   --radius-stamp: 0.25rem;
   --radius-pill: 9999px;
+
+  /* --- v2 — dark "futuristic" variant, used only under app/v2/** --- */
+  --color-v2-bg:          #06120C; /* near-black ink — v2 page background */
+  --color-v2-bg-elevated: #0C2117; /* panel/section background, one step up */
+  --color-v2-text:        #ECF5EF; /* body copy on dark */
+  --color-v2-muted:       #9DB6AA; /* secondary copy on dark, 4.5:1+ on v2-bg */
+  --color-v2-line:        #1D3A2C; /* solid borders/dividers on dark */
+  --color-v2-brass-glow:  #F0C55A; /* bright accent — headings, glow, active state */
+  --color-v2-brass-deep:  #C99A3A; /* secondary gold, better contrast for small text */
+}
+
+/* Glass-surface + glow tokens: alpha-blended, so kept as plain custom
+   properties rather than @theme colors (no Tailwind utility needed). */
+:root {
+  --v2-glass: rgba(255,255,255,0.055);
+  --v2-glass-strong: rgba(255,255,255,0.09);
+  --v2-glass-border: rgba(255,255,255,0.14);
+  --v2-glow-shadow: 0 0 48px rgba(240,197,90,0.22);
 }
 
 @utility btn {
@@ -84,12 +108,52 @@
   .field-hint  { @apply mt-1 block text-xs text-muted; }
   .field-error { @apply mt-1 block text-xs text-flagged; }
 
+  /* ---------- Select (native, custom chevron) ---------- */
+  .select-field {
+    @apply block w-full rounded-[var(--radius-card)] border border-line bg-surface px-3 py-2.5 text-sm text-text
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass disabled:cursor-not-allowed disabled:opacity-50
+      appearance-none bg-no-repeat pr-9 cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235B6760' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-position: right 0.7rem center;
+    background-size: 14px;
+  }
+
+  /* ---------- Filter bar ---------- */
+  .filter-bar {
+    @apply border-b border-line bg-paper/60 px-5 py-3.5 flex flex-col sm:flex-row sm:items-center sm:flex-wrap gap-2.5;
+  }
+
   /* ---------- Cards ---------- */
   .card {
     @apply rounded-[var(--radius-card)] border border-line bg-surface;
+    box-shadow: var(--shadow-card);
   }
   .card-header { @apply px-5 py-4 border-b border-line flex items-center justify-between gap-3; }
   .card-body   { @apply px-5 py-4; }
+
+  /* ---------- Illustration panels ---------- */
+  .hero-panel {
+    @apply relative overflow-hidden bg-ink bg-cover bg-center;
+  }
+  .hero-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(17,47,35,0.15) 0%, rgba(17,47,35,0.55) 78%, rgba(17,47,35,0.82) 100%);
+  }
+  .hero-panel > * { position: relative; z-index: 1; }
+
+  .ward-watermark {
+    background-image: url("/illustrations/ward-pattern.svg");
+    background-repeat: repeat;
+    background-size: 160px 160px;
+  }
+
+  /* ---------- Section divider ---------- */
+  .section-divider {
+    @apply mx-auto block h-12 w-60 bg-no-repeat bg-center;
+    background-image: url("/illustrations/leaf-divider.svg");
+  }
 
   /* ---------- The registry stamp — the signature element ---------- */
   .stamp {
@@ -118,7 +182,83 @@
 
   /* ---------- Sidebar nav ---------- */
   .side-link {
-    @apply flex items-center gap-3 rounded-[var(--radius-card)] px-3 py-2.5 text-sm font-medium text-on-ink/70 hover:bg-white/10 hover:text-on-ink transition-colors;
+    @apply flex items-center gap-3 rounded-[var(--radius-card)] px-3 py-2.5 text-sm font-medium text-on-ink/70 hover:bg-white/10 hover:text-on-ink transition-colors border-l-2 border-transparent;
   }
-  .side-link-active { @apply bg-white/10 text-on-ink; }
+  .side-link-active { @apply bg-white/10 text-on-ink border-l-2 border-brass; }
+}
+
+/* ===================================================================
+   v2 — dark "futuristic" component classes, used only under app/v2/**
+   =================================================================== */
+@layer components {
+  .v2-root {
+    @apply bg-v2-bg text-v2-text font-sans;
+  }
+  /* The v1 base-layer rule forces h1-h4 to --color-ink; override it inside v2. */
+  .v2-root h1, .v2-root h2, .v2-root h3, .v2-root h4 {
+    color: var(--color-v2-text);
+  }
+
+  /* ---------- Glass surfaces ---------- */
+  .v2-glass {
+    @apply rounded-2xl border transition-colors;
+    background: var(--v2-glass);
+    border-color: var(--v2-glass-border);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+  .v2-glass:hover {
+    border-color: var(--color-v2-brass-glow);
+  }
+  .v2-nav {
+    @apply sticky top-0 z-30 border-b;
+    background: var(--v2-glass-strong);
+    border-color: var(--v2-glass-border);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+
+  /* ---------- Glow accents ---------- */
+  .v2-glow-text {
+    color: var(--color-v2-brass-glow);
+    text-shadow: 0 0 24px rgba(240,197,90,0.35);
+  }
+  .v2-glow-btn {
+    @apply btn text-[#1A1400] font-semibold;
+    background: linear-gradient(135deg, var(--color-v2-brass-glow), var(--color-v2-brass-deep));
+    box-shadow: var(--v2-glow-shadow);
+  }
+  .v2-glow-btn:hover { filter: brightness(1.08); }
+  .v2-ghost-btn {
+    @apply btn border text-v2-text;
+    border-color: var(--v2-glass-border);
+    background: var(--v2-glass);
+  }
+  .v2-ghost-btn:hover { border-color: var(--color-v2-brass-glow); }
+
+  /* ---------- Sample-content tag (required wherever content isn't verified real data) ---------- */
+  .v2-sample-tag {
+    @apply pill text-[11px] uppercase tracking-wide border;
+    color: var(--color-v2-brass-glow);
+    border-color: var(--color-v2-brass-deep);
+    background: rgba(240,197,90,0.08);
+  }
+
+  /* ---------- Animated gradient-mesh hero backdrop ---------- */
+  .v2-mesh-bg {
+    background:
+      radial-gradient(60% 50% at 15% 20%, rgba(240,197,90,0.16) 0%, transparent 60%),
+      radial-gradient(50% 45% at 85% 15%, rgba(47,107,79,0.30) 0%, transparent 65%),
+      radial-gradient(70% 60% at 50% 100%, rgba(12,33,23,0.9) 0%, transparent 70%),
+      var(--color-v2-bg);
+    background-size: 140% 140%, 140% 140%, 100% 100%, 100% 100%;
+    animation: v2-mesh-drift 18s ease-in-out infinite alternate;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .v2-mesh-bg { animation: none; }
+  }
+  @keyframes v2-mesh-drift {
+    0%   { background-position: 0% 0%, 100% 0%, 50% 100%, 0 0; }
+    100% { background-position: 12% 8%, 88% 10%, 50% 92%, 0 0; }
+  }
 }
