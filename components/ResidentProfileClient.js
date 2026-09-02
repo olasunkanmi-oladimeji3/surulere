@@ -1,8 +1,11 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Shell from "@/components/Shell";
 import Stamp from "@/components/Stamp";
 import Icon from "@/components/Icon";
+import EditResidentModal from "@/components/EditResidentModal";
 import { maskNIN } from "@/lib/access";
 import {
   statusLabel, BUILDING_TYPE_LABELS, PROPERTY_TYPE_LABELS,
@@ -10,13 +13,18 @@ import {
 } from "@/lib/data";
 
 /**
- * `access` (from lib/queries/residents.js's computeResidentAccess) gates the
- * NIN: full for admin/self/the record's own owner, masked for everyone else
- * (e.g. an assigned CDA member) — same policy lib/access.js documents.
+ * `access` (from lib/queries/residents.js's computeResidentAccess) gates both
+ * the NIN and editing: full/editable for admin/self/the record's own owner,
+ * masked and read-only for everyone else (e.g. an assigned CDA member) —
+ * same policy lib/access.js documents. Editing is scoped to real residents
+ * only; field-collected records (a different table/shape) aren't covered yet.
  */
 export default function ResidentProfileClient({ user, resident, access, backHref = "/registry/dashboard/admin/residents" }) {
   const isField = resident.type === "field";
   const canSeeFullNin = access?.isAdmin || access?.isSelf || access?.isOwnerOfThis;
+  const canEdit = canSeeFullNin && !isField;
+  const [editOpen, setEditOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <Shell user={user}>
@@ -33,6 +41,11 @@ export default function ResidentProfileClient({ user, resident, access, backHref
           <h1 className="font-display text-2xl text-ink font-semibold mt-2">{resident.first_name} {resident.last_name}</h1>
           <p className="text-sm text-muted">{resident.property?.address}</p>
         </div>
+        {canEdit && (
+          <button onClick={() => setEditOpen(true)} className="btn-secondary text-sm">
+            <Icon name="edit" className="h-3.5 w-3.5" /> Edit
+          </button>
+        )}
       </div>
 
       <div className="card mb-6">
@@ -95,6 +108,15 @@ export default function ResidentProfileClient({ user, resident, access, backHref
           </div>
         )}
       </div>
+
+      {canEdit && (
+        <EditResidentModal
+          open={editOpen}
+          onClose={() => setEditOpen(false)}
+          resident={resident}
+          onSaved={() => router.refresh()}
+        />
+      )}
     </Shell>
   );
 }

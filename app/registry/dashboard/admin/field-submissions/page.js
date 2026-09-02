@@ -208,7 +208,7 @@ export default function FieldSubmissionsPage() {
                     )}
 
                     <div className="card-body border-t border-line">
-                      <Link href={`/registry/dashboard/admin/properties/${p.id}`} className="text-sm font-medium text-brass hover:underline">
+                      <Link href={`/registry/property/${p.id}`} className="text-sm font-medium text-brass hover:underline">
                         Open full property record →
                       </Link>
                     </div>

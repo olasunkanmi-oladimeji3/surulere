@@ -1,11 +1,12 @@
-// app/property/[id]/PropertyProfileClient.js
 "use client";
 import { useState, useTransition } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Shell from "@/components/Shell";
 import Stamp from "@/components/Stamp";
 import Icon from "@/components/Icon";
 import LogVisitModal from "@/components/LogVisitModal";
+import EditPropertyModal from "@/components/EditPropertyModal";
 import TenantForm from "@/components/forms/TenantForm";
 import {
   BUILDING_TYPE_LABELS,
@@ -15,7 +16,7 @@ import {
   STAFF_ROLE_LABELS,
   navHrefFor,
 } from "@/lib/data";
-import { removeTenantAction } from "./actions";
+import { removeTenantAction } from "@/lib/actions/properties";
 
 export default function PropertyProfileClient({
   user,
@@ -24,9 +25,11 @@ export default function PropertyProfileClient({
   logs,
 }) {
   const [visitModalOpen, setVisitModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
   const [addingUnit, setAddingUnit] = useState(null);
   const [confirmation, setConfirmation] = useState(null);
   const [pending, startTransition] = useTransition();
+  const router = useRouter();
 
   function removeTenant(unitId) {
     if (
@@ -158,8 +161,16 @@ export default function PropertyProfileClient({
           <h2 className="font-display text-base text-ink font-semibold">
             Property
           </h2>
+          {access.canManageTenants && (
+            <button onClick={() => setEditModalOpen(true)} className="btn-secondary text-sm">
+              <Icon name="edit" className="h-3.5 w-3.5" /> Edit
+            </button>
+          )}
         </div>
         <div className="card-body grid sm:grid-cols-3 gap-4">
+          <Field label="Address" value={property.address} />
+          <Field label="Ward" value={property.ward?.name} />
+          <Field label="CDA" value={property.cda?.name} />
           <Field label="Owner" value={property.owner?.full_name} />
           <Field label="Owner phone" value={property.owner?.phone} />
           <Field
@@ -262,6 +273,13 @@ export default function PropertyProfileClient({
         propertyId={property.id}
         actorId={user.id}
         actionLabel={user.role === "cda" ? "Submit" : "Update"}
+      />
+
+      <EditPropertyModal
+        open={editModalOpen}
+        onClose={() => setEditModalOpen(false)}
+        property={property}
+        onSaved={() => router.refresh()}
       />
     </Shell>
   );

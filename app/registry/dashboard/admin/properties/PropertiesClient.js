@@ -74,7 +74,7 @@ export default function PropertiesClient({ user, properties, wards }) {
                       <td className="text-muted">{p.units.length}</td>
                       <td className="text-muted">{occupied}/{p.units.length}</td>
                       <td><Stamp id={p.status} status={p.status} hideDot /></td>
-                      <td><Link href={`/registry/dashboard/admin/properties/${p.id}`} className="text-brass font-medium hover:underline">View</Link></td>
+                      <td><Link href={`/registry/property/${p.id}`} className="text-brass font-medium hover:underline">View</Link></td>
                     </tr>
                   );
                 })}

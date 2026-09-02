@@ -64,8 +64,33 @@ export async function createCdaMemberAction(form) {
     action: "Added a CDA member", detail: `${fullName.trim()} — ${email.trim()}`,
   });
 
-  revalidatePath("/cda-members");
+  revalidatePath("/registry/dashboard/admin/cda-members");
   return { ok: true, credentials: { email: email.trim(), password: tempPassword, name: fullName.trim() } };
+}
+
+/** The real access-control lever this schema supports: a CDA member's
+ *  permission scope IS their assigned ward (see computeAccess/
+ *  computeResidentAccess) — reassigning it changes what they can see and
+ *  verify, without touching their account. */
+export async function updateCdaMemberWardAction(id, wardId) {
+  const auth = await requireAdmin();
+  if (!auth.ok) return auth;
+  if (!wardId) return { ok: false, error: "A ward is required." };
+
+  const admin = createAdminClient();
+  const { data: member } = await admin.from("profiles").select("full_name").eq("id", id).single();
+  const { data: ward } = await admin.from("wards").select("name").eq("id", wardId).single();
+
+  const { error: updateErr } = await admin.from("cda_members").update({ ward_id: wardId }).eq("id", id);
+  if (updateErr) return { ok: false, error: updateErr.message };
+
+  await admin.from("audit_log").insert({
+    actor_id: auth.admin.id, actor_name: auth.admin.full_name, actor_role: "admin",
+    action: "Reassigned a CDA member's ward", detail: `${member?.full_name || id} → ${ward?.name || wardId}`,
+  });
+
+  revalidatePath("/registry/dashboard/admin/cda-members");
+  return { ok: true };
 }
 
 export async function removeCdaMemberAction(id) {
@@ -85,6 +110,6 @@ export async function removeCdaMemberAction(id) {
     action: "Removed a CDA member", detail: member?.full_name || member?.email || id,
   });
 
-  revalidatePath("/cda-members");
+  revalidatePath("/registry/dashboard/admin/cda-members");
   return { ok: true };
 }
