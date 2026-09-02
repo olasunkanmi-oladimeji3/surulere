@@ -1,9 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import { WARDS, CDAS } from "@/lib/wards";
 import Reveal from "@/components/v2/Reveal";
 import Counter from "@/components/v2/Counter";
 import HeroHeadline from "@/components/v2/HeroHeadline";
-import PlaceholderImage from "@/components/v2/PlaceholderImage";
 
 export default function V2Home() {
   return (
@@ -33,20 +33,38 @@ export default function V2Home() {
             </div>
           </div>
 
-          <PlaceholderImage
-            label="Surulere Local Government Secretariat building"
-            className="w-full aspect-[4/5] lg:aspect-[3/4]"
-          />
+          <div className="relative w-full aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden border v2-placeholder">
+            <Image
+              src="/secretariat-1.jpeg"
+              alt="Surulere Local Government Secretariat building"
+              fill
+              sizes="(min-width: 1024px) 40vw, 90vw"
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
       </section>
 
       {/* Landmark banner */}
-      <Reveal as="section" className="max-w-6xl mx-auto px-5 lg:px-8 py-4">
-        <p className="text-xs uppercase tracking-wide text-v2-brass-deep font-medium mb-4">A Surulere landmark</p>
-        <PlaceholderImage
-          label="National Stadium, Lagos — Surulere's best-known landmark"
-          className="w-full aspect-video"
-        />
+      <Reveal as="section" className="max-w-6xl mx-auto px-5 lg:px-8 py-16 grid lg:grid-cols-[0.8fr_1.2fr] gap-8 items-center">
+        <div className="relative w-full aspect-[3/4] max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden border v2-placeholder">
+          <Image
+            src="/shitta-roundabout.jpeg"
+            alt="A roundabout in Surulere, Lagos"
+            fill
+            sizes="(min-width: 1024px) 30vw, 90vw"
+            className="object-cover"
+          />
+        </div>
+        <div>
+          <p className="text-xs uppercase tracking-wide text-v2-brass-deep font-medium mb-3">Around Surulere</p>
+          <h2 className="font-display text-2xl sm:text-3xl font-semibold">Streets residents know by heart</h2>
+          <p className="text-v2-muted mt-4 max-w-md leading-relaxed">
+            From Shitta and Ogunlana Drive to Ojuelegba and the National Stadium corridor,
+            Surulere&rsquo;s wards are dense, walkable, and unmistakably central Lagos.
+          </p>
+        </div>
       </Reveal>
 
       {/* Section previews */}

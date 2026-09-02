@@ -57,7 +57,7 @@ export default function Shell({ user, children }) {
       <aside className="relative bg-ink text-on-ink lg:w-64 lg:min-h-screen lg:fixed lg:inset-y-0 flex flex-col overflow-hidden">
         <div className="ward-watermark absolute inset-0 opacity-40 pointer-events-none" aria-hidden="true" />
         <div className="relative flex items-center gap-2.5 px-5 py-5 border-b border-white/10">
-          <span className="text-brass"><Image src="/logo.png" alt="Ilé Surulere" width={36} height={36} /></span>
+          <span className="text-brass"><Image src="/logo.jpeg" alt="Ilé Surulere" width={36} height={36} /></span>
           <div className="leading-tight">
             <p className="font-display text-sm font-semibold">Ilé Surulere</p>
             <p className="text-[11px] text-on-ink/60">Community Registry</p>
@@ -99,7 +99,7 @@ export default function Shell({ user, children }) {
       <div className="flex-1 lg:ml-64">
         <header className="bg-surface border-b border-line px-5 py-4 flex items-center justify-between gap-3 lg:hidden">
           <div className="flex items-center gap-2 text-ink">
-            <span className="text-brass"><Image src="/logo.png" alt="Ilé Surulere" width={32} height={32} /></span>
+            <span className="text-brass"><Image src="/logo.jpeg" alt="Ilé Surulere" width={32} height={32} /></span>
             <span className="font-display text-sm font-semibold">Ilé Surulere</span>
           </div>
           <div className="flex items-center gap-1.5">

@@ -12,7 +12,7 @@ export default function HomePage() {
       <header className="border-b border-line bg-surface/90 backdrop-blur sticky top-0 z-20">
         <div className="max-w-6xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2.5 text-ink">
-              <span className="text-brass"><Image src="/logo.png" alt="Ilé Surulere" width={32} height={32} /></span>
+              <span className="text-brass"><Image src="/logo.jpeg" alt="Ilé Surulere" width={32} height={32} /></span>
             <span className="font-display font-semibold text-base">Ilé Surulere</span>
           </Link>
           <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-muted">

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Reveal from "@/components/v2/Reveal";
 
 export const metadata = { title: "Departments — Surulere LG v2" };
@@ -26,7 +27,17 @@ export default function DepartmentsPage() {
         current organogram, which would need to come directly from the Secretariat.
       </p>
 
-      <Reveal as="div" stagger className="mt-12 grid sm:grid-cols-2 gap-4">
+      <Reveal as="div" className="relative w-full aspect-video rounded-2xl overflow-hidden border v2-placeholder mt-10">
+        <Image
+          src="/secretariat-2.jpeg"
+          alt="Surulere Local Government Secretariat"
+          fill
+          sizes="90vw"
+          className="object-cover"
+        />
+      </Reveal>
+
+      <Reveal as="div" stagger className="mt-10 grid sm:grid-cols-2 gap-4">
         {DEPARTMENTS.map((d) => (
           <div key={d.name} className="v2-glass p-5">
             <h2 className="font-display text-base font-semibold">{d.name}</h2>

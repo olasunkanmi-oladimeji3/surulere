@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Seal from "@/components/Seal";
+import Image from "next/image";
 
 const LINKS = [
   { href: "/v2/history", label: "History" },
@@ -20,13 +20,15 @@ export default function V2Nav() {
     <header className="v2-nav">
       <div className="max-w-6xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between gap-4">
         <Link href="/v2" className="flex items-center gap-2.5 shrink-0">
-          <span className="v2-glow-text"><Seal className="h-7 w-7" /></span>
+          <span className="relative h-8 w-8 rounded-full overflow-hidden shrink-0">
+            <Image src="/logo.jpeg" alt="Surulere Local Government seal" fill sizes="32px" className="object-cover" />
+          </span>
           <span className="font-display font-semibold text-base">Ilé Surulere</span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-v2-muted">
+        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium">
           {LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className="hover:text-v2-text transition-colors">
+            <Link key={l.href} href={l.href} className="v2-nav-link py-1">
               {l.label}
             </Link>
           ))}

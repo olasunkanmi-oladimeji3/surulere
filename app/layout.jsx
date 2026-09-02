@@ -7,9 +7,9 @@ export const metadata = {
   description:
     "A demo registry for Surulere Local Government: property owners list their houses and tenants, CDA members verify on the ground, and LG Staff keep one trustworthy record.",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: "/logo.jpeg",
+    shortcut: "/logo.jpeg",
+    apple: "/logo.jpeg",
   },
 };
 

@@ -423,7 +423,7 @@ function isValidNigerianPhone(value) {
       {/* Header */}
       <header className="bg-ink text-on-ink">
         <div className="max-w-2xl mx-auto px-5 py-4 flex items-center gap-3">
-          <span className="text-brass"> <Image src="/logo.png" alt="Ilé Surulere" width={32} height={32} /></span>
+          <span className="text-brass"> <Image src="/logo.jpeg" alt="Ilé Surulere" width={32} height={32} /></span>
           <div>
             <p className="font-display font-semibold text-sm">Ilé Surulere</p>
             <p className="text-xs text-on-ink/60">CDA Field Collection Form</p>

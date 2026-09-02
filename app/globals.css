@@ -227,14 +227,44 @@
     @apply btn text-[#1A1400] font-semibold;
     background: linear-gradient(135deg, var(--color-v2-brass-glow), var(--color-v2-brass-deep));
     box-shadow: var(--v2-glow-shadow);
+    animation: v2-breathe 4s ease-in-out infinite;
   }
   .v2-glow-btn:hover { filter: brightness(1.08); }
+  @media (prefers-reduced-motion: reduce) {
+    .v2-glow-btn { animation: none; }
+  }
+  @keyframes v2-breathe {
+    0%, 100% { box-shadow: 0 0 48px rgba(240,197,90,0.22); }
+    50%      { box-shadow: 0 0 30px rgba(240,197,90,0.40); }
+  }
   .v2-ghost-btn {
     @apply btn border text-v2-text;
     border-color: var(--v2-glass-border);
     background: var(--v2-glass);
   }
   .v2-ghost-btn:hover { border-color: var(--color-v2-brass-glow); }
+
+  /* ---------- Animated placeholder frame ---------- */
+  .v2-placeholder:hover {
+    border-color: var(--color-v2-brass-glow);
+    transform: translateY(-3px);
+  }
+
+  /* ---------- Nav link with animated underline ---------- */
+  .v2-nav-link {
+    @apply relative text-v2-muted hover:text-v2-text transition-colors;
+  }
+  .v2-nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: -4px;
+    height: 2px;
+    background: var(--color-v2-brass-glow);
+    transition: right 200ms ease;
+  }
+  .v2-nav-link:hover::after { right: 0; }
 
   /* ---------- Sample-content tag (required wherever content isn't verified real data) ---------- */
   .v2-sample-tag {
