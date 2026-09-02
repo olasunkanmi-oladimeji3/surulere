@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function V2Footer() {
   return (
     <footer className="border-t border-v2-line mt-24">
-      <div className="max-w-6xl mx-auto px-5 lg:px-8 py-12 grid sm:grid-cols-3 gap-10">
+      <div className="max-w-6xl mx-auto px-5 lg:px-8 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
         <div>
           <p className="font-display text-base font-semibold text-v2-text">Ilé Surulere</p>
           <p className="text-sm text-v2-muted mt-2 leading-relaxed max-w-xs">
@@ -15,12 +15,22 @@ export default function V2Footer() {
         <div>
           <p className="text-xs uppercase tracking-wide text-v2-brass-deep font-medium mb-3">Explore</p>
           <ul className="space-y-2 text-sm text-v2-muted">
-            <li><Link href="/v2/history" className="hover:text-v2-text">History</Link></li>
-            <li><Link href="/v2/leadership" className="hover:text-v2-text">Leadership</Link></li>
-            <li><Link href="/v2/departments" className="hover:text-v2-text">Departments</Link></li>
-            <li><Link href="/v2/wards" className="hover:text-v2-text">Wards &amp; CDAs</Link></li>
-            <li><Link href="/v2/news" className="hover:text-v2-text">News</Link></li>
-            <li><Link href="/v2/contact" className="hover:text-v2-text">Contact</Link></li>
+            <li><Link href="/history" className="hover:text-v2-text">History</Link></li>
+            <li><Link href="/leadership" className="hover:text-v2-text">Leadership</Link></li>
+            <li><Link href="/departments" className="hover:text-v2-text">Departments</Link></li>
+            <li><Link href="/wards" className="hover:text-v2-text">Wards &amp; CDAs</Link></li>
+            <li><Link href="/news" className="hover:text-v2-text">News</Link></li>
+            <li><Link href="/contact" className="hover:text-v2-text">Contact</Link></li>
+          </ul>
+        </div>
+
+        <div>
+          <p className="text-xs uppercase tracking-wide text-v2-brass-deep font-medium mb-3">Resident Registry</p>
+          <ul className="space-y-2 text-sm text-v2-muted">
+            <li><Link href="/registry" className="hover:text-v2-text">Overview</Link></li>
+            <li><Link href="/registry/login" className="hover:text-v2-text">Log in</Link></li>
+            <li><Link href="/registry/signup" className="hover:text-v2-text">Register as an owner</Link></li>
+            <li><Link href="/registry/field-form" className="hover:text-v2-text">Field data collection</Link></li>
           </ul>
         </div>
 

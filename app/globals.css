@@ -46,7 +46,7 @@
   --radius-stamp: 0.25rem;
   --radius-pill: 9999px;
 
-  /* --- v2 — dark "futuristic" variant, used only under app/v2/** --- */
+  /* --- v2 — dark "futuristic" variant, used by the "v2" site (app/(site)/**), the main site now — internal token names kept as-is --- */
   --color-v2-bg:          #06120C; /* near-black ink — v2 page background */
   --color-v2-bg-elevated: #0C2117; /* panel/section background, one step up */
   --color-v2-text:        #ECF5EF; /* body copy on dark */
@@ -188,7 +188,7 @@
 }
 
 /* ===================================================================
-   v2 — dark "futuristic" component classes, used only under app/v2/**
+   v2 — dark "futuristic" component classes, used by the "v2" site (app/(site)/**), the main site now — internal token names kept as-is
    =================================================================== */
 @layer components {
   .v2-root {

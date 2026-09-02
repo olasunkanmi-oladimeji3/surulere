@@ -5,12 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 
 const LINKS = [
-  { href: "/v2/history", label: "History" },
-  { href: "/v2/leadership", label: "Leadership" },
-  { href: "/v2/departments", label: "Departments" },
-  { href: "/v2/wards", label: "Wards & CDAs" },
-  { href: "/v2/news", label: "News" },
-  { href: "/v2/contact", label: "Contact" },
+  { href: "/history", label: "History" },
+  { href: "/leadership", label: "Leadership" },
+  { href: "/departments", label: "Departments" },
+  { href: "/wards", label: "Wards & CDAs" },
+  { href: "/news", label: "News" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function V2Nav() {
@@ -19,7 +19,7 @@ export default function V2Nav() {
   return (
     <header className="v2-nav">
       <div className="max-w-6xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between gap-4">
-        <Link href="/v2" className="flex items-center gap-2.5 shrink-0">
+        <Link href="/" className="flex items-center gap-2.5 shrink-0">
           <span className="relative h-8 w-8 rounded-full overflow-hidden shrink-0">
             <Image src="/logo.jpeg" alt="Surulere Local Government seal" fill sizes="32px" className="object-cover" />
           </span>
@@ -34,7 +34,7 @@ export default function V2Nav() {
           ))}
         </nav>
 
-        <Link href="/" className="hidden lg:inline-flex v2-ghost-btn text-sm px-3.5 py-2 shrink-0">
+        <Link href="/registry" className="hidden lg:inline-flex v2-ghost-btn text-sm px-3.5 py-2 shrink-0">
           Registry site ↗
         </Link>
 
@@ -70,7 +70,7 @@ export default function V2Nav() {
             </Link>
           ))}
           <Link
-            href="/"
+            href="/registry"
             className="px-3 py-2.5 rounded-lg text-sm font-medium v2-glow-text"
             onClick={() => setOpen(false)}
           >

@@ -2,7 +2,7 @@
 "use client";
 import { useState, useTransition } from "react";
 import Modal from "./Modal";
-import { createCdaMemberAction } from "@/app/dashboard/admin/cda-members/actions";
+import { createCdaMemberAction } from "@/app/registry/dashboard/admin/cda-members/actions";
 
 export default function AddCdaModal({ open, onClose, wards }) {
   const [credentials, setCredentials] = useState(null);

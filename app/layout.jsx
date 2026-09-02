@@ -3,9 +3,8 @@ import { AuthProvider } from "@/contexts/AuthContext";
 
 
 export const metadata = {
-  title: "Ilé Surulere — Property & Resident Registry",
-  description:
-    "A demo registry for Surulere Local Government: property owners list their houses and tenants, CDA members verify on the ground, and LG Staff keep one trustworthy record.",
+  title: "Ilé Surulere",
+  description: "Surulere Local Government, Lagos.",
   icons: {
     icon: "/logo.jpeg",
     shortcut: "/logo.jpeg",

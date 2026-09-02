@@ -2,7 +2,7 @@
 "use client";
 import { useState, useTransition } from "react";
 import Modal from "./Modal";
-import { logVisitAction } from "@/app/dashboard/admin/properties/[id]/actions";
+import { logVisitAction } from "@/app/registry/dashboard/admin/properties/[id]/actions";
 
 export default function LogVisitModal({ open, onClose, propertyId, actionLabel }) {
   return (

@@ -17,24 +17,24 @@ function initials(name) {
  *  the sidebar automatically — no per-page wiring needed. */
 const NAV_ITEMS = {
   owner: [
-    { href: "/dashboard/owner", label: "My properties", icon: "building" },
+    { href: "/registry/dashboard/owner", label: "My properties", icon: "building" },
   ],
   resident: [
-    { href: "/dashboard/resident", label: "My profile", icon: "doorOpen" },
-    { href: "/dashboard/resident/household", label: "My household", icon: "users" },
+    { href: "/registry/dashboard/resident", label: "My profile", icon: "doorOpen" },
+    { href: "/registry/dashboard/resident/household", label: "My household", icon: "users" },
   ],
   cda: [
-    { href: "/dashboard/cda", label: "My ward", icon: "shield" },
-    { href: "/dashboard/cda/register-property", label: "Register a property", icon: "plus" },
+    { href: "/registry/dashboard/cda", label: "My ward", icon: "shield" },
+    { href: "/registry/dashboard/cda/register-property", label: "Register a property", icon: "plus" },
   ],
   admin: [
-    { href: "/dashboard/admin", label: "Overview", icon: "building" },
-    { href: "/dashboard/admin/properties", label: "Properties", icon: "house" },
-     { href: "/dashboard/admin/residents", label: "Residents", icon: "doorOpen" },
-    { href: "/dashboard/admin/field-submissions", label: "Field submissions", icon: "flag" },
-    { href: "/dashboard/admin/cda-members", label: "CDA members", icon: "shield" },
-    { href: "/dashboard/admin/lg-staff", label: "LG Staff", icon: "users" },
-    { href: "/dashboard/admin/audit-log", label: "Audit log", icon: "search" },
+    { href: "/registry/dashboard/admin", label: "Overview", icon: "building" },
+    { href: "/registry/dashboard/admin/properties", label: "Properties", icon: "house" },
+    { href: "/registry/dashboard/admin/residents", label: "Residents", icon: "doorOpen" },
+    { href: "/registry/dashboard/admin/field-submissions", label: "Field submissions", icon: "flag" },
+    { href: "/registry/dashboard/admin/cda-members", label: "CDA members", icon: "shield" },
+    { href: "/registry/dashboard/admin/lg-staff", label: "LG Staff", icon: "users" },
+    { href: "/registry/dashboard/admin/audit-log", label: "Audit log", icon: "search" },
   ],
 };
 
@@ -48,7 +48,7 @@ export default function Shell({ user, children }) {
 
   function handleLogout() {
     logout();
-    router.replace("/login");
+    router.replace("/registry/login");
   }
 
   return (
@@ -74,7 +74,7 @@ export default function Shell({ user, children }) {
               <Icon name={item.icon} /> {item.label}
             </Link>
           ))}
-          <Link href="/" className="side-link">
+          <Link href="/registry" className="side-link">
             <Icon name="house" /> Public site
           </Link>
         </nav>
