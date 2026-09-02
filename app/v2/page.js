@@ -4,6 +4,8 @@ import { WARDS, CDAS } from "@/lib/wards";
 import Reveal from "@/components/v2/Reveal";
 import Counter from "@/components/v2/Counter";
 import HeroHeadline from "@/components/v2/HeroHeadline";
+import LandmarkCarousel from "@/components/v2/LandmarkCarousel";
+import SurulereMap from "@/components/v2/SurulereMap";
 
 export default function V2Home() {
   return (
@@ -17,9 +19,7 @@ export default function V2Home() {
               Surulere Local Government, reimagined for what&rsquo;s next.
             </HeroHeadline>
             <p className="text-v2-muted text-base sm:text-lg mt-6 max-w-xl leading-relaxed">
-              A concept front door for the Secretariat — the LGA&rsquo;s history, leadership,
-              departments and wards, alongside the property registry already live at
-              Ilé Surulere.
+              BYE-LAW to establish requirements for proof of address(Know your neighbour) for residents of surulere local government area of lagos state.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Link href="/v2/history" className="v2-glow-btn px-5 py-3">Explore the LGA</Link>
@@ -46,17 +46,9 @@ export default function V2Home() {
         </div>
       </section>
 
-      {/* Landmark banner */}
+      {/* Landmark carousel */}
       <Reveal as="section" className="max-w-6xl mx-auto px-5 lg:px-8 py-16 grid lg:grid-cols-[0.8fr_1.2fr] gap-8 items-center">
-        <div className="relative w-full aspect-[3/4] max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden border v2-placeholder">
-          <Image
-            src="/shitta-roundabout.jpeg"
-            alt="A roundabout in Surulere, Lagos"
-            fill
-            sizes="(min-width: 1024px) 30vw, 90vw"
-            className="object-cover"
-          />
-        </div>
+        <LandmarkCarousel />
         <div>
           <p className="text-xs uppercase tracking-wide text-v2-brass-deep font-medium mb-3">Around Surulere</p>
           <h2 className="font-display text-2xl sm:text-3xl font-semibold">Streets residents know by heart</h2>
@@ -65,6 +57,13 @@ export default function V2Home() {
             Surulere&rsquo;s wards are dense, walkable, and unmistakably central Lagos.
           </p>
         </div>
+      </Reveal>
+
+      {/* Map */}
+      <Reveal as="section" className="max-w-6xl mx-auto px-5 lg:px-8 pb-16">
+        <p className="text-xs uppercase tracking-wide text-v2-brass-deep font-medium mb-3">Find your way</p>
+        <h2 className="font-display text-2xl sm:text-3xl font-semibold mb-6">Surulere on the map</h2>
+        <SurulereMap />
       </Reveal>
 
       {/* Section previews */}
