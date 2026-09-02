@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
-import Seal from "@/components/Seal";
 import Pill from "@/components/Pill";
 import { TextField } from "@/components/forms/fieldKit";
 
@@ -67,7 +67,9 @@ export default function SignupPage() {
         style={{ backgroundImage: "url(/illustrations/estate-panel.svg)" }}
       >
         <div className="flex items-center gap-2.5 text-on-ink mb-6">
-          <span className="text-brass"><Seal className="h-8 w-8" /></span>
+          <span className="relative h-8 w-8 rounded-full overflow-hidden shrink-0">
+            <Image src="/logo.jpeg" alt="Surulere Local Government seal" fill sizes="32px" className="object-cover" />
+          </span>
           <span className="font-display font-semibold text-base">Ilé Surulere</span>
         </div>
         <p className="font-display text-2xl text-on-ink leading-snug max-w-sm">
@@ -83,7 +85,9 @@ export default function SignupPage() {
         <header className="border-b border-line lg:hidden">
           <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2.5 text-ink">
-              <span className="text-brass"><Seal className="h-8 w-8" /></span>
+              <span className="relative h-8 w-8 rounded-full overflow-hidden shrink-0">
+                <Image src="/logo.jpeg" alt="Surulere Local Government seal" fill sizes="32px" className="object-cover" />
+              </span>
               <span className="font-display font-semibold text-base">Ilé Surulere</span>
             </Link>
             <Link href="/login" className="text-sm font-medium text-muted hover:text-ink">

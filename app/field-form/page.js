@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import useSWR from "swr";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/cilent";
-import Seal from "@/components/Seal";
 import Icon from "@/components/Icon";
 import Stamp from "@/components/Stamp";
 import Image from "next/image";
@@ -423,7 +422,9 @@ function isValidNigerianPhone(value) {
       {/* Header */}
       <header className="bg-ink text-on-ink">
         <div className="max-w-2xl mx-auto px-5 py-4 flex items-center gap-3">
-          <span className="text-brass"> <Image src="/logo.jpeg" alt="Ilé Surulere" width={32} height={32} /></span>
+          <span className="relative h-8 w-8 rounded-full overflow-hidden shrink-0">
+            <Image src="/logo.jpeg" alt="Surulere Local Government seal" fill sizes="32px" className="object-cover" />
+          </span>
           <div>
             <p className="font-display font-semibold text-sm">Ilé Surulere</p>
             <p className="text-xs text-on-ink/60">CDA Field Collection Form</p>

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Seal from "@/components/Seal";
 import Stamp from "@/components/Stamp";
 import Pill from "@/components/Pill";
 import Icon from "@/components/Icon";
@@ -12,8 +11,10 @@ export default function HomePage() {
       <header className="border-b border-line bg-surface/90 backdrop-blur sticky top-0 z-20">
         <div className="max-w-6xl mx-auto px-5 lg:px-8 h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2.5 text-ink">
-              <span className="text-brass"><Image src="/logo.jpeg" alt="Ilé Surulere" width={32} height={32} /></span>
-            <span className="font-display font-semibold text-base">Ilé Surulere</span>
+              <span className="relative h-8 w-8 rounded-full overflow-hidden shrink-0">
+                          <Image src="/logo.jpeg" alt="Surulere Local Government seal" fill sizes="32px" className="object-cover" />
+                    </span>
+                <span className="font-display font-semibold text-base">Ilé Surulere</span>
           </Link>
           <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-muted">
             <a href="#how" className="hover:text-ink">How it works</a>
@@ -70,7 +71,9 @@ export default function HomePage() {
             <div className="card p-1.5" style={{ boxShadow: "var(--shadow-lifted)" }}>
               <div className="card-header bg-ink border-ink rounded-t-[var(--radius-card)]">
                 <div className="flex items-center gap-2 text-on-ink">
-                  <span className="text-brass"><Seal className="h-6 w-6" /></span>
+                  <span className="relative h-6 w-6 rounded-full overflow-hidden shrink-0">
+                    <Image src="/logo.jpeg" alt="Surulere Local Government seal" fill sizes="24px" className="object-cover" />
+                  </span>
                   <span className="text-sm font-medium">Property record</span>
                 </div>
                 <span className="font-mono text-xs text-on-ink/70">Sample</span>
